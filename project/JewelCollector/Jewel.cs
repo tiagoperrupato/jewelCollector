@@ -2,11 +2,22 @@ namespace JewelCollector;
 
 public class Jewel : Cell
 {
-    private string type;
-
-    public string Type {get => type; set=> type = value;}
+    public string Type {get;}
+    public int Points {get;}
     public Jewel(string type)
     {
-        this.type = type;
+        Type = type;
+        switch(type)
+        {
+            case "JR":
+                Points = 100;
+                break;
+            case "JG":
+                Points = 50;
+                break;
+            case "JB":
+                Points = 10;
+                break;
+        }
     }
 }
