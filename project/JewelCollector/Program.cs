@@ -33,40 +33,52 @@ public class JewelCollector {
         };
 
         Map map = new Map();
-        fillMap(map, posJewels, posObstacles); 
+        Robot player = fillMap(map, posJewels, posObstacles); 
+        printMap(map);
 
         do {
-            Console.WriteLine("Enter the command: ");
+            Console.Write("Enter the command: ");
             ConsoleKeyInfo command = Console.ReadKey();
+            Console.Write("\n");
 
             if (command.Key == ConsoleKey.Q) {
                 running = false;
             } 
             else 
             {
-            if (command.Key == ConsoleKey.W) {
-                Console.WriteLine("cima");
-            } else if (command.Key == ConsoleKey.A) {
-                Console.WriteLine("esquerda");
-            } else if (command.Key == ConsoleKey.S) {
-            Console.WriteLine("baixo");
-            } else if (command.Key == ConsoleKey.D) {
-            Console.WriteLine("direita");
-            } else if (command.Key == ConsoleKey.G) {
-                Console.WriteLine("pegou joia");
-            }
+                if (command.Key == ConsoleKey.W) 
+                {
+                    if (player.Pos[0] > 0)
+                        player.moveUp();
+                } else if (command.Key == ConsoleKey.A) 
+                {
+                    if (player.Pos[1] > 0)
+                        player.moveLeft();
+                } else if (command.Key == ConsoleKey.S) 
+                {
+                    if (player.Pos[0] < map.Board.GetLength(0)-1)
+                        player.moveDown();
+                } else if (command.Key == ConsoleKey.D) 
+                {
+                    if (player.Pos[1] < map.Board.GetLength(1)-1)
+                        player.moveRight();
+                } else if (command.Key == ConsoleKey.G) 
+                {
+                    player.grabJewel();
+                }
 
-            printMap(map);
+                printMap(map);
             }
         } while (running);
 
 
         // supports funtions
-        void fillMap(Map map, string[,] posJewels, string[,] posObstacles) 
+        Robot fillMap(Map map, string[,] posJewels, string[,] posObstacles) 
         {
             fillJewels(map, posJewels);
             fillObstacles(map, posObstacles);
-            addRobot(map);
+            Robot robot = addRobot(map);
+            return robot;
         }
     
         void fillJewels(Map map, string[,] posJewels)
@@ -95,10 +107,11 @@ public class JewelCollector {
                 }
         }
 
-        void addRobot(Map map)
+        Robot addRobot(Map map)
         {
-            Cell newCell = new Robot("ME");
+            Robot newCell = new Robot("ME", map);
             map.Board[0, 0] = newCell;
+            return newCell;
         }
 
         void printMap(Map map)
@@ -158,6 +171,7 @@ public class JewelCollector {
                     }
                 }
             }
+            Console.WriteLine("Bag total itens: {0} | Bag total value: {1}", player.BagItens, player.BagValue);
         }
     }
 }

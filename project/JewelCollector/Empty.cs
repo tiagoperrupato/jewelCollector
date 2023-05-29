@@ -2,11 +2,9 @@ namespace JewelCollector;
 
 public class Empty : Cell
 {
-    private string type;
-
-    public string Type {get => type; set=> type = value;}
+    public string Type {get;}
     public Empty(string type)
     {
-        this.type = type;
+        Type = type;
     }
 }
