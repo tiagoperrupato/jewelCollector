@@ -1,0 +1,15 @@
+/home/tiago/Documents/Unicamp/Curso-MSFT/Intro-Csharp/jewelCollector/project/JewelCollector/bin/Debug/net6.0/JewelCollector
+/home/tiago/Documents/Unicamp/Curso-MSFT/Intro-Csharp/jewelCollector/project/JewelCollector/bin/Debug/net6.0/JewelCollector.deps.json
+/home/tiago/Documents/Unicamp/Curso-MSFT/Intro-Csharp/jewelCollector/project/JewelCollector/bin/Debug/net6.0/JewelCollector.runtimeconfig.json
+/home/tiago/Documents/Unicamp/Curso-MSFT/Intro-Csharp/jewelCollector/project/JewelCollector/bin/Debug/net6.0/JewelCollector.dll
+/home/tiago/Documents/Unicamp/Curso-MSFT/Intro-Csharp/jewelCollector/project/JewelCollector/bin/Debug/net6.0/ref/JewelCollector.dll
+/home/tiago/Documents/Unicamp/Curso-MSFT/Intro-Csharp/jewelCollector/project/JewelCollector/bin/Debug/net6.0/JewelCollector.pdb
+/home/tiago/Documents/Unicamp/Curso-MSFT/Intro-Csharp/jewelCollector/project/JewelCollector/obj/Debug/net6.0/JewelCollector.csproj.AssemblyReference.cache
+/home/tiago/Documents/Unicamp/Curso-MSFT/Intro-Csharp/jewelCollector/project/JewelCollector/obj/Debug/net6.0/JewelCollector.GeneratedMSBuildEditorConfig.editorconfig
+/home/tiago/Documents/Unicamp/Curso-MSFT/Intro-Csharp/jewelCollector/project/JewelCollector/obj/Debug/net6.0/JewelCollector.AssemblyInfoInputs.cache
+/home/tiago/Documents/Unicamp/Curso-MSFT/Intro-Csharp/jewelCollector/project/JewelCollector/obj/Debug/net6.0/JewelCollector.AssemblyInfo.cs
+/home/tiago/Documents/Unicamp/Curso-MSFT/Intro-Csharp/jewelCollector/project/JewelCollector/obj/Debug/net6.0/JewelCollector.csproj.CoreCompileInputs.cache
+/home/tiago/Documents/Unicamp/Curso-MSFT/Intro-Csharp/jewelCollector/project/JewelCollector/obj/Debug/net6.0/JewelCollector.dll
+/home/tiago/Documents/Unicamp/Curso-MSFT/Intro-Csharp/jewelCollector/project/JewelCollector/obj/Debug/net6.0/ref/JewelCollector.dll
+/home/tiago/Documents/Unicamp/Curso-MSFT/Intro-Csharp/jewelCollector/project/JewelCollector/obj/Debug/net6.0/JewelCollector.pdb
+/home/tiago/Documents/Unicamp/Curso-MSFT/Intro-Csharp/jewelCollector/project/JewelCollector/obj/Debug/net6.0/JewelCollector.genruntimeconfig.cache
