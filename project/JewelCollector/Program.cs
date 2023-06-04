@@ -32,7 +32,7 @@ public class JewelCollector {
             {"$$", "1", "4"},
         };
 
-        Map map = new Map();
+        Map map = new Map(1);
         Robot player = fillMap(map, posJewels, posObstacles); 
         printMap(map);
 
@@ -64,11 +64,18 @@ public class JewelCollector {
                         player.moveRight();
                 } else if (command.Key == ConsoleKey.G) 
                 {
-                    player.grabJewel();
+                    player.useItem();
                 }
 
                 printMap(map);
             }
+
+            if (player.Energy == 0)
+            {
+                running = false;
+                Console.WriteLine("Você perdeu =(");
+            }
+            
         } while (running);
 
 
@@ -116,6 +123,7 @@ public class JewelCollector {
 
         void printMap(Map map)
         {
+            Console.WriteLine("Level: {0}", map.Level);
             int i, j;
             string type;
             for (i = 0; i < map.Board.GetLength(0); i++)
@@ -172,6 +180,7 @@ public class JewelCollector {
                 }
             }
             Console.WriteLine("Bag total itens: {0} | Bag total value: {1}", player.BagItens, player.BagValue);
+            Console.WriteLine("Energy: {0}", player.Energy);
         }
     }
 }

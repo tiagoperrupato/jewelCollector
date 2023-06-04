@@ -8,6 +8,7 @@ public class Robot : Cell
     public int BagItens {get; set;}
     public int BagValue {get; set;}
     public int[] Pos {get; set;}
+    public int Energy {get; set;}
     public Robot(string type, Map map)
     {
         Type = type;
@@ -15,6 +16,7 @@ public class Robot : Cell
         BagItens = 0;
         BagValue = 0;
         Pos = new int[2];
+        Energy = 5;
     }
 
     public void moveUp()
@@ -22,6 +24,7 @@ public class Robot : Cell
         Map.Board[Pos[0], Pos[1]] = new Empty("--");
         Map.Board[Pos[0]-1, Pos[1]] = this;
         Pos[0] -= 1;
+        Energy--;
     }
 
     public void moveDown()
@@ -29,6 +32,7 @@ public class Robot : Cell
         Map.Board[Pos[0], Pos[1]] = new Empty("--");
         Map.Board[Pos[0]+1, Pos[1]] = this;
         Pos[0] += 1;
+        Energy--;
     }
 
     public void moveRight()
@@ -36,6 +40,7 @@ public class Robot : Cell
         Map.Board[Pos[0], Pos[1]] = new Empty("--");
         Map.Board[Pos[0], Pos[1]+1] = this;
         Pos[1] += 1;
+        Energy--;
     }
 
     public void moveLeft()
@@ -43,13 +48,15 @@ public class Robot : Cell
         Map.Board[Pos[0], Pos[1]] = new Empty("--");
         Map.Board[Pos[0], Pos[1]-1] = this;
         Pos[1] -= 1;
+        Energy--;
     }
 
-    public void grabJewel()
+    public void useItem()
     {
         int i, j, posRow, posColumn;
         Cell cell;
         Jewel jewel;
+        Obstacle obstacle;
         for (i = -1; i < 2; i++)
             for (j = -1; j < 2; j++)
             {
@@ -64,12 +71,21 @@ public class Robot : Cell
                         if (cell.Type.Equals("JR") |
                             cell.Type.Equals("JG") |
                             cell.Type.Equals("JB"))
-                            {
-                                jewel = (Jewel)cell;
-                                BagItens++;
-                                BagValue += jewel.Points;
+                        {
+                            jewel = (Jewel)cell;
+                            BagItens++;
+                            BagValue += jewel.Points;
+                            Energy += jewel.Energy;
+                            Map.Board[Pos[0]+i, Pos[1]+j] = new Empty("--");
+                        }
+                        else if (cell.Type.Equals("$$") |
+                                cell.Type.Equals("!!"))
+                        {
+                            obstacle = (Obstacle)cell;
+                            Energy += obstacle.Energy;
+                            if (cell.Type.Equals("$$"))
                                 Map.Board[Pos[0]+i, Pos[1]+j] = new Empty("--");
-                            }
+                        }
                     }
                 }
             }

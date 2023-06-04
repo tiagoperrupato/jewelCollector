@@ -4,10 +4,12 @@ public class Map
 {
     private Cell[,] board;
     public Cell[,] Board {get => board;}
+    public int Level {get; set;}
 
-    public Map() 
+    public Map(int level) 
     {
         this.board = new Cell[10, 10];
+        Level = level;
 
         Cell newCell;
         int i, j;
