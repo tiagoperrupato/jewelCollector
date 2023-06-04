@@ -47,21 +47,46 @@ public class JewelCollector {
             else 
             {
                 if (command.Key == ConsoleKey.W) 
-                {
-                    if (player.Pos[0] > 0)
+                {    
+                    try
+                    {
                         player.moveUp();
+                    }
+                    catch(IndexOutOfRangeException)
+                    {
+                        Console.WriteLine("Você já está no limite do mapa");
+                    }
+
                 } else if (command.Key == ConsoleKey.A) 
                 {
-                    if (player.Pos[1] > 0)
+                    try
+                    {
                         player.moveLeft();
+                    }
+                    catch(IndexOutOfRangeException)
+                    {
+                        Console.WriteLine("Você já está no limite do mapa");
+                    }
                 } else if (command.Key == ConsoleKey.S) 
                 {
-                    if (player.Pos[0] < map.Board.GetLength(0)-1)
+                    try
+                    {
                         player.moveDown();
+                    }
+                    catch(IndexOutOfRangeException)
+                    {
+                        Console.WriteLine("Você já está no limite do mapa");
+                    }
                 } else if (command.Key == ConsoleKey.D) 
                 {
-                    if (player.Pos[1] < map.Board.GetLength(1)-1)
+                    try
+                    {
                         player.moveRight();
+                    }
+                    catch(IndexOutOfRangeException)
+                    {
+                        Console.WriteLine("Você já está no limite do mapa");
+                    }
                 } else if (command.Key == ConsoleKey.G) 
                 {
                     player.useItem();
@@ -75,7 +100,7 @@ public class JewelCollector {
                 running = false;
                 Console.WriteLine("Você perdeu =(");
             }
-            
+
         } while (running);
 
 

@@ -21,32 +21,32 @@ public class Robot : Cell
 
     public void moveUp()
     {
-        Map.Board[Pos[0], Pos[1]] = new Empty("--");
         Map.Board[Pos[0]-1, Pos[1]] = this;
+        Map.Board[Pos[0], Pos[1]] = new Empty("--");
         Pos[0] -= 1;
         Energy--;
     }
 
     public void moveDown()
     {
-        Map.Board[Pos[0], Pos[1]] = new Empty("--");
         Map.Board[Pos[0]+1, Pos[1]] = this;
+        Map.Board[Pos[0], Pos[1]] = new Empty("--");
         Pos[0] += 1;
         Energy--;
     }
 
     public void moveRight()
     {
-        Map.Board[Pos[0], Pos[1]] = new Empty("--");
         Map.Board[Pos[0], Pos[1]+1] = this;
+        Map.Board[Pos[0], Pos[1]] = new Empty("--");
         Pos[1] += 1;
         Energy--;
     }
 
     public void moveLeft()
     {
-        Map.Board[Pos[0], Pos[1]] = new Empty("--");
         Map.Board[Pos[0], Pos[1]-1] = this;
+        Map.Board[Pos[0], Pos[1]] = new Empty("--");
         Pos[1] -= 1;
         Energy--;
     }
