@@ -53,7 +53,7 @@ public class Robot : Cell
                 moveRight();
                 break;
         }
-        //Energy--;
+        Energy--;
     }
 
     private void getItem()
@@ -87,7 +87,10 @@ public class Robot : Cell
     private void searchRecharge(int posRow, int posColumn)
     {
         if(Map.Board[posRow, posColumn] is IRecharge r)
+        {
+            Console.WriteLine("Entrei aqui.");
             r.recharge(this);
+        }
     }
 
     public bool getAllJewel()

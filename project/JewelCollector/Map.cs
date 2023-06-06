@@ -103,7 +103,6 @@ public class Map
             else
                 newCell = new Obstacle(type);
 
-            newCell = new Obstacle((posObstacles[i, 0]));
             Int32.TryParse(posObstacles[i, 1], out row);
             Int32.TryParse(posObstacles[i, 2], out column);
             insert(newCell, row, column);
