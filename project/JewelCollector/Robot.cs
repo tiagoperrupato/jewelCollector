@@ -5,6 +5,7 @@ public class Robot : Cell
 
     public string Type {get;}
     public Map Map {get; set;}
+    public List<Jewel> Bag{get; private set;}
     public int BagItens {get; set;}
     public int BagValue {get; set;}
     public int[] Pos {get; set;}
@@ -13,6 +14,7 @@ public class Robot : Cell
     {
         Type = type;
         Map = map;
+        Bag = new List<Jewel>();
         BagItens = 0;
         BagValue = 0;
         Pos = new int[2];
