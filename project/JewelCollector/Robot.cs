@@ -6,90 +6,154 @@ public class Robot : Cell
     public string Type {get;}
     public Map Map {get; set;}
     public List<Jewel> Bag{get; private set;}
-    public int BagItens {get; set;}
-    public int BagValue {get; set;}
     public int[] Pos {get; set;}
-    public int Energy {get; set;}
-    public Robot(string type, Map map)
+    public int? Energy {get; set;}
+    public Robot(string type, Map map, int? energy=5)
     {
         Type = type;
         Map = map;
         Bag = new List<Jewel>();
-        BagItens = 0;
-        BagValue = 0;
-        Pos = new int[2];
-        Energy = 5;
+        Pos = new int[2] {map.initialRobotPos[0], map.initialRobotPos[1]};
+        map.insert(this, Pos[0], Pos[1]);
+        Energy = energy;
     }
 
-    public void moveUp()
+    public void action(char action)
     {
-        Map.Board[Pos[0]-1, Pos[1]] = this;
-        Map.Board[Pos[0], Pos[1]] = new Empty("--");
+        if(action is 'w' or 'a' or 's' or 'd')
+        {
+            move(action);
+        }
+        else if(action is 'g')
+        {
+            getItem();
+        }
+        else if(action is 'q')
+            return;
+        else
+        {
+            //throw new NotValidCommandException();
+        }
+    }
+
+    private void move(char mov)
+    {
+        switch(mov)
+        {
+            case 'w':
+                moveUp();
+                break;
+            case 'a':
+                moveLeft();
+                break;
+            case 's':
+                moveDown();
+                break;
+            case 'd':
+                moveRight();
+                break;
+        }
+        //Energy--;
+    }
+
+    private void getItem()
+    {
+        int[,] searchCoords = new int[4, 2]
+        {
+            {Pos[0]-1, Pos[1]},
+            {Pos[0], Pos[1]+1},
+            {Pos[0]+1, Pos[1]},
+            {Pos[0], Pos[1]-1}
+        };
+
+        for(int i = 0; i < searchCoords.GetLength(0); i++)
+        {
+            searchJewel(searchCoords[i, 0], searchCoords[i, 1]);
+            searchRecharge(searchCoords[i, 0], searchCoords[i, 1]);
+        }
+    }
+
+    private void searchJewel(int posRow, int posColumn)
+    {
+        if(Map.Board[posRow, posColumn] is Jewel jewel)
+        {
+            Bag.Add(jewel);
+            Map.insert(new Empty("--"), posRow, posColumn);
+            if(jewel is IRecharge r)
+                r.recharge(this);
+        }
+    }
+
+    private void searchRecharge(int posRow, int posColumn)
+    {
+        if(Map.Board[posRow, posColumn] is IRecharge r)
+            r.recharge(this);
+    }
+
+    public bool getAllJewel()
+    {   
+        bool getAll = true;
+        int numRows = Map.Board.GetLength(0);
+        int numColumns = Map.Board.GetLength(1);
+
+        int i, j;
+        for(i = 0; i < numRows; i++)
+        {
+            for(j = 0; j < numColumns; j++)
+            {
+                if(Map.Board[i, j] is Jewel jewel)
+                {
+                    getAll = false;
+                    return getAll;
+                }
+            }
+        }
+
+        return getAll;
+    }
+
+    public bool hasEnergy()
+    {
+        if(Energy > 0) return true;
+        else return false;
+    }
+
+    private void moveUp()
+    {   
+        Map.insert(this, Pos[0]-1, Pos[1]);
+        Map.insert(new Empty("--"), Pos[0], Pos[1]);
         Pos[0] -= 1;
-        Energy--;
     }
 
-    public void moveDown()
-    {
-        Map.Board[Pos[0]+1, Pos[1]] = this;
-        Map.Board[Pos[0], Pos[1]] = new Empty("--");
+    private void moveDown()
+    {   
+        Map.insert(this, Pos[0]+1, Pos[1]);
+        Map.insert(new Empty("--"), Pos[0], Pos[1]);
         Pos[0] += 1;
-        Energy--;
     }
 
-    public void moveRight()
+    private void moveRight()
     {
         Map.Board[Pos[0], Pos[1]+1] = this;
         Map.Board[Pos[0], Pos[1]] = new Empty("--");
         Pos[1] += 1;
-        Energy--;
     }
 
-    public void moveLeft()
+    private void moveLeft()
     {
-        Map.Board[Pos[0], Pos[1]-1] = this;
-        Map.Board[Pos[0], Pos[1]] = new Empty("--");
+        Map.insert(this, Pos[0], Pos[1]-1);
+        Map.insert(new Empty("--"), Pos[0], Pos[1]);
         Pos[1] -= 1;
-        Energy--;
     }
 
-    public void useItem()
+    public void printStatus()
     {
-        int i, j, posRow, posColumn;
-        Cell cell;
-        Jewel jewel;
-        Obstacle obstacle;
-        for (i = -1; i < 2; i++)
-            for (j = -1; j < 2; j++)
-            {
-                if ((i == 0 | j == 0) & !(i == 0 & j == 0))
-                {
-                    posRow = Pos[0]+i;
-                    posColumn = Pos[1]+j;
-                    if ((posRow >=0 & posRow < Map.Board.GetLength(0)) &
-                        (posColumn >=0 & posColumn < Map.Board.GetLength(1)))
-                    {
-                        cell = Map.Board[Pos[0]+i, Pos[1]+j];
-                        if (cell.Type.Equals("JR") |
-                            cell.Type.Equals("JG") |
-                            cell.Type.Equals("JB"))
-                        {
-                            jewel = (Jewel)cell;
-                            BagItens++;
-                            BagValue += jewel.Points;
-                            Energy += jewel.Energy;
-                            Map.Board[Pos[0]+i, Pos[1]+j] = new Empty("--");
-                        }
-                        else if (cell.Type.Equals("$$") |
-                                cell.Type.Equals("!!"))
-                        {
-                            obstacle = (Obstacle)cell;
-                            Energy += obstacle.Energy;
-                            if (cell.Type.Equals("$$"))
-                                Map.Board[Pos[0]+i, Pos[1]+j] = new Empty("--");
-                        }
-                    }
-                }
-            }
+        int totalPoints = 0;
+        foreach(Jewel jewel in Bag)
+        {
+            totalPoints += jewel.Points;
+        }
+        Console.WriteLine($"Bag total items: {Bag.Count} | Bag total value: {totalPoints}");
+        Console.WriteLine($"Remaining energy: {Energy}");
     }
 }

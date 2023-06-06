@@ -7,6 +7,7 @@ public class Map
     private string[,] posObstacles;
     public Cell[,] Board {get => board;}
     public int Level {get; private set;}
+    public int[] initialRobotPos{get; private set;}
 
     public Map(int level) 
     {   
@@ -22,6 +23,7 @@ public class Map
 
     private void makeInitialMap()
     {
+        initialRobotPos = new int[2] {0, 0};
         posJewels = new string[6,3]
         {
             {"JR", "1", "9"},
@@ -67,26 +69,45 @@ public class Map
     {
         int i, row, column;
         Cell newCell;
+        string type;
         for(i = 0; i < posJewels.GetLength(0); i++)
-            {
-                newCell = new Jewel((posJewels[i, 0]));
-                Int32.TryParse(posJewels[i, 1], out row);
-                Int32.TryParse(posJewels[i, 2], out column);
-                insert(newCell, row, column);
-            }
+        {
+            type = posJewels[i, 0];
+
+            if(type is "JR")
+                newCell = new JewelRed(type);
+            else if(type is "JG")
+                newCell = new JewelGreen(type);
+            else
+                newCell = new JewelBlue(type);
+            
+            Int32.TryParse(posJewels[i, 1], out row);
+            Int32.TryParse(posJewels[i, 2], out column);
+            insert(newCell, row, column);
+        }
     }
 
     private void fillObstacles(string[,] posObstacles)
     {
         int i, row, column;
         Cell newCell;
+        string type;
         for(i = 0; i < posObstacles.GetLength(0); i++)
-            {
-                newCell = new Obstacle((posObstacles[i, 0]));
-                Int32.TryParse(posObstacles[i, 1], out row);
-                Int32.TryParse(posObstacles[i, 2], out column);
-                insert(newCell, row, column);
-            }
+        {
+            type = posObstacles[i, 0];
+            
+            if(type is "##")
+                newCell = new Water(type);
+            else if(type is "$$")
+                newCell = new Tree(type);
+            else
+                newCell = new Obstacle(type);
+
+            newCell = new Obstacle((posObstacles[i, 0]));
+            Int32.TryParse(posObstacles[i, 1], out row);
+            Int32.TryParse(posObstacles[i, 2], out column);
+            insert(newCell, row, column);
+        }
     }
 
     public void insert(Cell newCell, int posRow, int posColumn)
@@ -128,6 +149,10 @@ public class Map
                         break;
                     case "ME":
                         Console.BackgroundColor = ConsoleColor.Black;
+                        Console.ForegroundColor = ConsoleColor.Magenta;
+                        break;
+                    case "!!":
+                        Console.BackgroundColor = ConsoleColor.Black;
                         Console.ForegroundColor = ConsoleColor.Yellow;
                         break;
                     case "--":
@@ -152,7 +177,5 @@ public class Map
                 }
             }
         }
-        Console.WriteLine("Bag total itens: {0} | Bag total value: {1}", player.BagItens, player.BagValue);
-        Console.WriteLine("Energy: {0}", player.Energy);
     }
 }

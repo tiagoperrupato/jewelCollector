@@ -1,4 +1,5 @@
 ﻿﻿namespace JewelCollector;
+
 public class JewelCollector {
     public static void Main() 
     {
@@ -7,8 +8,7 @@ public class JewelCollector {
         bool running = true, winLevel = false;
         int level = 1;
         Map map;
-        Robot player;
-        Console.WriteLine((ConsoleKey.Q.));
+        Robot? player = null;
     
         do
         {
@@ -34,21 +34,16 @@ public class JewelCollector {
         }
         while(running);
         
-
-
-
-
-
-
-
-
-
-
         bool runLevel(int level)
         {
             bool win = false;
             map = new Map(level);
-            player = new Robot();
+
+            if(level is 1)
+                player = new Robot("ME", map);
+            else
+                player = new Robot("ME", map, player?.Energy);
+
             KeyAction consoleAction = new KeyAction();
             consoleAction.KeyCommand+=playerAction;
 
@@ -59,6 +54,9 @@ public class JewelCollector {
                 consoleAction.Command = Console.ReadKey().KeyChar;
                 Console.Write("\n");
 
+                if(consoleAction.Command is 'q')
+                    break;
+
                 if(player.getAllJewel())
                 {
                     win = true;
@@ -67,161 +65,37 @@ public class JewelCollector {
             }
             while(player.hasEnergy());
 
-
-
-
-
-
-
-            void printGameState(Map map, Robot player)
-            {
-                map.printMap();
-                player.printStatus();
-            }
-
-            void playerAction(object? sender, char action)
-            {
-                player.action(action);
-            }
+            return win;
         }
 
-        
-
-        public class KeyAction
+        void printGameState(Map map, Robot player)
         {
-            private char command;
-            public char Command
+            map.printMap();
+            player.printStatus();
+        }
+
+        void playerAction(object? sender, char action)
+        {
+            player.action(action);
+        }
+    }
+    public class KeyAction
+    {
+        private char command;
+        public char Command
+        {
+            get=>command;
+            set
             {
-                get=>command;
-                set
-                {
-                    command = value;
-                    OnKeyCommand(command);
-                }
+                command = value;
+                OnKeyCommand(command);
             }
-            public event EventHandler<char>? KeyCommand;
-
-            protected virtual void OnKeyCommand(char e)
-            {
-                KeyCommand?.Invoke(this, e);
-            }
-
         }
+        public event EventHandler<char>? KeyCommand;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        while(running)
+        protected virtual void OnKeyCommand(char e)
         {
-            Map map = new Map(level);
-
-
-
-            
-
-            
-            Robot player = fillMap(map, posJewels, posObstacles); 
-            printMap(map, player);
-
-            do {
-                Console.Write("Enter the command: ");
-                ConsoleKeyInfo command = Console.ReadKey();
-                Console.Write("\n");
-
-                if (command.Key == ConsoleKey.Q) {
-                    running = false;
-                } 
-                else 
-                {
-                    if (command.Key == ConsoleKey.W) 
-                    {    
-                        try
-                        {
-                            player.moveUp();
-                        }
-                        catch(IndexOutOfRangeException)
-                        {
-                            Console.WriteLine("Você já está no limite do mapa");
-                        }
-
-                    } else if (command.Key == ConsoleKey.A) 
-                    {
-                        try
-                        {
-                            player.moveLeft();
-                        }
-                        catch(IndexOutOfRangeException)
-                        {
-                            Console.WriteLine("Você já está no limite do mapa");
-                        }
-                    } else if (command.Key == ConsoleKey.S) 
-                    {
-                        try
-                        {
-                            player.moveDown();
-                        }
-                        catch(IndexOutOfRangeException)
-                        {
-                            Console.WriteLine("Você já está no limite do mapa");
-                        }
-                    } else if (command.Key == ConsoleKey.D) 
-                    {
-                        try
-                        {
-                            player.moveRight();
-                        }
-                        catch(IndexOutOfRangeException)
-                        {
-                            Console.WriteLine("Você já está no limite do mapa");
-                        }
-                    } else if (command.Key == ConsoleKey.G) 
-                    {
-                        player.useItem();
-                    }
-
-                    printMap(map, player);
-                }
-
-                if (player.Energy == 0)
-                {
-                    running = false;
-                    Console.WriteLine("Você perdeu =(");
-                }
-
-            } while (running);
+            KeyCommand?.Invoke(this, e);
         }
-
-
-        // supports funtions
-        Robot fillMap(Map map, string[,] posJewels, string[,] posObstacles) 
-        {
-            fillJewels(map, posJewels);
-            fillObstacles(map, posObstacles);
-            Robot robot = addRobot(map);
-            return robot;
-        }
-
-        Robot addRobot(Map map)
-        {
-            Robot newCell = new Robot("ME", map);
-            map.Board[0, 0] = newCell;
-            return newCell;
-        }
-
-        
     }
 }
