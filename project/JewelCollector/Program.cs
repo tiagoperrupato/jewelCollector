@@ -76,7 +76,22 @@ public class JewelCollector {
 
         void playerAction(object? sender, char action)
         {
-            player.action(action);
+            try
+            {
+                player.action(action);
+            }
+            catch(IndexOutOfRangeException)
+            {
+                Console.WriteLine("\nVocê chegou no limite do mapa.");
+            }
+            catch(NotAllowedPositionException)
+            {
+                Console.WriteLine("\nPosição Ocupada.");
+            }
+            catch(NotValidCommandException)
+            {
+                Console.WriteLine("\nComando inválido, digite novamente.");
+            }
         }
     }
     public class KeyAction

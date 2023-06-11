@@ -100,6 +100,8 @@ public class Map
                 newCell = new Water(type);
             else if(type is "$$")
                 newCell = new Tree(type);
+            else if(type is "!!")
+                newCell = new Radiation(type);
             else
                 newCell = new Obstacle(type);
 

@@ -23,6 +23,7 @@ public class Robot : Cell
         if(action is 'w' or 'a' or 's' or 'd')
         {
             move(action);
+            receiveDamage();
         }
         else if(action is 'g')
         {
@@ -32,10 +33,24 @@ public class Robot : Cell
             return;
         else
         {
-            //throw new NotValidCommandException();
+            throw new NotValidCommandException();
         }
     }
 
+    private void receiveDamage()
+    {
+        int[,] searchCoords = new int[4, 2]
+        {
+            {Pos[0]-1, Pos[1]},
+            {Pos[0], Pos[1]+1},
+            {Pos[0]+1, Pos[1]},
+            {Pos[0], Pos[1]-1}
+        };
+
+        for(int i = 0; i < searchCoords.GetLength(0); i++)
+            if(Map.Board[searchCoords[i, 0], searchCoords[i, 1]] is  IDamage cell)
+                cell.damage(this);
+    }
     private void move(char mov)
     {
         switch(mov)
@@ -123,30 +138,66 @@ public class Robot : Cell
 
     private void moveUp()
     {   
-        Map.insert(this, Pos[0]-1, Pos[1]);
-        Map.insert(new Empty("--"), Pos[0], Pos[1]);
-        Pos[0] -= 1;
+        if(Map.Board[Pos[0]-1, Pos[1]] is not Obstacle)
+        {
+            if(Map.Board[Pos[0]-1, Pos[1]] is IDamage cell)
+                cell.destruction(this);
+            Map.insert(this, Pos[0]-1, Pos[1]);
+            Map.insert(new Empty("--"), Pos[0], Pos[1]);
+            Pos[0] -= 1;
+        }
+        else
+        {
+            throw new NotAllowedPositionException();
+        }
     }
 
     private void moveDown()
     {   
-        Map.insert(this, Pos[0]+1, Pos[1]);
-        Map.insert(new Empty("--"), Pos[0], Pos[1]);
-        Pos[0] += 1;
+        if(Map.Board[Pos[0]+1, Pos[1]] is not Obstacle)
+        {
+            if(Map.Board[Pos[0]+1, Pos[1]] is IDamage cell)
+                cell.destruction(this);
+            Map.insert(this, Pos[0]+1, Pos[1]);
+            Map.insert(new Empty("--"), Pos[0], Pos[1]);
+            Pos[0] += 1;
+        }
+        else
+        {
+            throw new NotAllowedPositionException();
+        }
     }
 
     private void moveRight()
     {
-        Map.Board[Pos[0], Pos[1]+1] = this;
-        Map.Board[Pos[0], Pos[1]] = new Empty("--");
-        Pos[1] += 1;
+        if(Map.Board[Pos[0], Pos[1]+1] is not Obstacle)
+        {
+            if(Map.Board[Pos[0], Pos[1]+1] is IDamage cell)
+                cell.destruction(this);
+            Map.Board[Pos[0], Pos[1]+1] = this;
+            Map.Board[Pos[0], Pos[1]] = new Empty("--");
+            Pos[1] += 1;
+        }
+        else
+        {
+            throw new NotAllowedPositionException();
+        }
     }
 
     private void moveLeft()
     {
-        Map.insert(this, Pos[0], Pos[1]-1);
-        Map.insert(new Empty("--"), Pos[0], Pos[1]);
-        Pos[1] -= 1;
+        if(Map.Board[Pos[0], Pos[1]-1] is not Obstacle)
+        {
+            if(Map.Board[Pos[0], Pos[1]-1] is IDamage cell)
+                cell.destruction(this);
+            Map.insert(this, Pos[0], Pos[1]-1);
+            Map.insert(new Empty("--"), Pos[0], Pos[1]);
+            Pos[1] -= 1;
+        }
+        else
+        {
+            throw new NotAllowedPositionException();
+        }
     }
 
     public void printStatus()
