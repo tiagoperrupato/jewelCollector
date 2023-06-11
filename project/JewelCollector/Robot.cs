@@ -82,9 +82,15 @@ public class Robot : Cell
         };
 
         for(int i = 0; i < searchCoords.GetLength(0); i++)
-        {
-            searchJewel(searchCoords[i, 0], searchCoords[i, 1]);
-            searchRecharge(searchCoords[i, 0], searchCoords[i, 1]);
+        {   
+            int row = searchCoords[i, 0];
+            int column = searchCoords[i, 1];
+
+            if(row >= 0 && row < Map.Board.GetLength(0) && column >=0 && column < Map.Board.GetLength(1))
+            {
+                searchJewel(row, column);
+                searchRecharge(row, column);
+            }
         }
     }
 
@@ -138,7 +144,7 @@ public class Robot : Cell
 
     private void moveUp()
     {   
-        if(Map.Board[Pos[0]-1, Pos[1]] is not Obstacle)
+        if(Map.Board[Pos[0]-1, Pos[1]] is not (Obstacle or Jewel))
         {
             if(Map.Board[Pos[0]-1, Pos[1]] is IDamage cell)
                 cell.destruction(this);
@@ -154,7 +160,7 @@ public class Robot : Cell
 
     private void moveDown()
     {   
-        if(Map.Board[Pos[0]+1, Pos[1]] is not Obstacle)
+        if(Map.Board[Pos[0]+1, Pos[1]] is not (Obstacle or Jewel))
         {
             if(Map.Board[Pos[0]+1, Pos[1]] is IDamage cell)
                 cell.destruction(this);
@@ -170,7 +176,7 @@ public class Robot : Cell
 
     private void moveRight()
     {
-        if(Map.Board[Pos[0], Pos[1]+1] is not Obstacle)
+        if(Map.Board[Pos[0], Pos[1]+1] is not (Obstacle or Jewel))
         {
             if(Map.Board[Pos[0], Pos[1]+1] is IDamage cell)
                 cell.destruction(this);
@@ -186,7 +192,7 @@ public class Robot : Cell
 
     private void moveLeft()
     {
-        if(Map.Board[Pos[0], Pos[1]-1] is not Obstacle)
+        if(Map.Board[Pos[0], Pos[1]-1] is not (Obstacle or Jewel))
         {
             if(Map.Board[Pos[0], Pos[1]-1] is IDamage cell)
                 cell.destruction(this);

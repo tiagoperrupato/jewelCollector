@@ -3,8 +3,6 @@ namespace JewelCollector;
 public class Map
 {
     private Cell[,] board;
-    private string[,] posJewels;
-    private string[,] posObstacles;
     public Cell[,] Board {get => board;}
     public int Level {get; private set;}
     public int[] initialRobotPos{get; private set;}
@@ -17,14 +15,14 @@ public class Map
         }
         else
         {
-            //makeRandomMap(level);
+            makeRandomMap(level);
         }        
     }
 
     private void makeInitialMap()
     {
         initialRobotPos = new int[2] {0, 0};
-        posJewels = new string[6,3]
+        string[,] posJewels = new string[6,3]
         {
             {"JR", "1", "9"},
             {"JR", "8", "8"},
@@ -33,7 +31,7 @@ public class Map
             {"JB", "3", "4"},
             {"JB", "2", "1"},
         };
-        posObstacles = new string[12,3]
+        string[,] posObstacles = new string[12,3]
         {
             {"##", "5", "0"},
             {"##", "5", "1"},
@@ -63,6 +61,76 @@ public class Map
 
         fillJewels(posJewels);
         fillObstacles(posObstacles);
+    }
+
+    private void makeRandomMap(int level)
+    {
+        Level = level;
+        this.board = new Cell[10+level-1, 10+level-1];
+        Cell newCell;
+        int i, j;
+        for (i = 0; i < board.GetLength(0); i++)
+            for (j = 0; j < board.GetLength(1); j++)
+            {
+                newCell = new Empty("--");
+                board[i, j] = newCell;
+            }
+
+        Random r = new Random(1);
+        for(int k = 0; k < 3; k++)
+        {
+            int rowRandom = r.Next(0, 10+level-1);
+            int columnRandom = r.Next(0, 10+level-1);
+            if (Board[rowRandom, columnRandom] is Empty)
+                this.insert(new JewelBlue("JB"), rowRandom, columnRandom);
+        }
+        for(int k = 0; k < 3; k++)
+        {
+            int rowRandom = r.Next(0, 10+level-1);
+            int columnRandom = r.Next(0, 10+level-1);
+            if (Board[rowRandom, columnRandom] is Empty)
+                this.insert(new JewelGreen("JG"), rowRandom, columnRandom);
+        }
+        for(int k = 0; k < 3; k++)
+        {
+            int rowRandom = r.Next(0, 10+level-1);
+            int columnRandom = r.Next(0, 10+level-1);
+            if (Board[rowRandom, columnRandom] is Empty)
+                this.insert(new JewelRed("JR"), rowRandom, columnRandom);
+        }
+        for(int k = 0; k < 10+2*level-1; k++)
+        {
+            int rowRandom = r.Next(0, 10+level-1);
+            int columnRandom = r.Next(0, 10+level-1);
+            if (Board[rowRandom, columnRandom] is Empty)
+                this.insert(new Water("##"), rowRandom, columnRandom);
+        }
+        for(int k = 0; k < 10+2*level-1; k++)
+        {
+            int rowRandom = r.Next(0, 10+level-1);
+            int columnRandom = r.Next(0, 10+level-1);
+            if (Board[rowRandom, columnRandom] is Empty)
+                this.insert(new Tree("$$"), rowRandom, columnRandom);
+        }
+        for(int k = 0; k < level-1; k++)
+        {
+            int rowRandom = r.Next(0, 10+level-1);
+            int columnRandom = r.Next(0, 10+level-1);
+            if (Board[rowRandom, columnRandom] is Empty)
+                this.insert(new Radiation("!!"), rowRandom, columnRandom);
+        }
+        
+        bool validHeroPosition = false;
+        int row, column;
+        do
+        {
+            row = r.Next(0, 10+level-1);
+            column = r.Next(0, 10+level-1);
+            if(Board[row, column] is Empty)
+                validHeroPosition = true;
+        }
+        while(!validHeroPosition);
+        initialRobotPos = new int[2] {row, column};
     }
 
     private void fillJewels(string[,] posJewels)
