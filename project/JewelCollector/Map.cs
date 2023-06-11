@@ -1,12 +1,21 @@
 namespace JewelCollector;
-
+/// <summary>
+/// Classe que representa o mapa do jogo.
+/// Nessa classe existem formas de montar esse mapa a depender do nível, que pode ir de 1 a 21.
+/// Além disso, existem métodos para alterar sua disposição e printar seu estado.
+/// </summary>
 public class Map
 {
     private Cell[,] board;
-    public Cell[,] Board {get => board;}
-    public int Level {get; private set;}
-    public int[] initialRobotPos{get; private set;}
+    public Cell[,] Board {get => board;} ///< Matriz de Cell para representar fisicamente o Mapa
+    public int Level {get; private set;} ///< Nível atual do Mapa
+    public int[] initialRobotPos{get; private set;} ///< Posição inicial do Robô para criar o Mapa
 
+    /// <summary>
+    /// Construtor do objeto. 
+    /// Pode assumir dois modos, o fixo (caso seja no nível 1) ou o aleatório (para os demais).
+    /// </summary>
+    /// <param name="level">identifica o nível do mapa</param>
     public Map(int level) 
     {   
         if(level is 1)
@@ -19,6 +28,9 @@ public class Map
         }        
     }
 
+    /// <summary>
+    /// Função que cria o mapa inicial, que tem um formato fixo.
+    /// </summary>
     private void makeInitialMap()
     {
         initialRobotPos = new int[2] {0, 0};
@@ -63,6 +75,10 @@ public class Map
         fillObstacles(posObstacles);
     }
 
+    /// <summary>
+    /// Função que cria um mapa aleatório a depender do nível especificado.
+    /// </summary>
+    /// <param name="level">identifica o nível do mapa</param>
     private void makeRandomMap(int level)
     {
         Level = level;
@@ -133,6 +149,10 @@ public class Map
         initialRobotPos = new int[2] {row, column};
     }
 
+    /// <summary>
+    /// Método que adiciona as jóias do mapa inicial
+    /// </summary>
+    /// <param name="posJewels">Vetor de string que representa o tipo de joia e sua posição</param>
     private void fillJewels(string[,] posJewels)
     {
         int i, row, column;
@@ -155,6 +175,10 @@ public class Map
         }
     }
 
+    /// <summary>
+    /// Método que adiciona os obstáculos do mapa inicial.
+    /// </summary>
+    /// <param name="posObstacles">Vetor de string que representa o tipo de obstáculo e sua posição</param>
     private void fillObstacles(string[,] posObstacles)
     {
         int i, row, column;
@@ -179,11 +203,21 @@ public class Map
         }
     }
 
+    /// <summary>
+    /// Método para inserir uma célula em uma determinada posição do Mapa.
+    /// </summary>
+    /// <param name="newCell">referência para a célula a ser adicionada</param>
+    /// <param name="posRow">posição da linha a ser adicionada</param>
+    /// <param name="posColumn">posição da coluna a ser adicionada</param>
     public void insert(Cell newCell, int posRow, int posColumn)
     {
         Board[posRow, posColumn] = newCell;
     }
 
+    /// <summary>
+    /// Método para printar no Console o estado atual do Mapa. 
+    /// Foi feita uma associação de cores para deixar mais visualizável o jogo.
+    /// </summary>
     public void printMap()
     {
         Console.WriteLine("Level: {0}", Level);

@@ -1,13 +1,24 @@
 namespace JewelCollector;
-
+/// <summary>
+/// Classe que representa o robô no jogo, que é controlado pelo jogador.
+/// Essa classe implementa a interface Cell para ser visualizável no mapa.
+/// Existem métodos para executar os comandos solicitados pelo teclado, como fazer movimentações, pegar itens pelo mapa e sair do jogo.
+/// </summary>
 public class Robot : Cell
 {
 
     public string Type {get;}
-    public Map Map {get; set;}
-    public List<Jewel> Bag{get; private set;}
-    public int[] Pos {get; set;}
-    public int? Energy {get; set;}
+    public Map Map {get; set;} ///< referência para o objeto que representa o Mapa do jogo.
+    public List<Jewel> Bag{get; private set;}   ///< lista de Jóias coletadas pelo robô.
+    public int[] Pos {get; set;}    ///< vetor da posição atual do robô o Mapa.
+    public int? Energy {get; set;} ///< Quantidade de energia do robô.
+    
+    /// <summary>
+    /// Construtor do objeto.
+    /// </summary>
+    /// <param name="type">associa um tipo ao robô</param>
+    /// <param name="map">cria a referência para o mapa</param>
+    /// <param name="energy">parâmetro opicional que representa a quantidade de energia do robô (por padrão é 5)</param>
     public Robot(string type, Map map, int? energy=5)
     {
         Type = type;
@@ -18,6 +29,11 @@ public class Robot : Cell
         Energy = energy;
     }
 
+    /// <summary>
+    /// Método que executa o comand osolicitado pelo teclado e verifica se ele foi válido.
+    /// Esse comando pode ser de movimentação para cima, baixo, direita e esquerda, ou para coletar um item no mapa, ou para sair do jogo.
+    /// </summary>
+    /// <param name="action"></param>
     public void action(char action)
     {
         if(action is 'w' or 'a' or 's' or 'd')
@@ -37,6 +53,7 @@ public class Robot : Cell
         }
     }
 
+    // função que analisa se o robô receberá dano de algum objeto que esteja em uma posição adjascente a ele.
     private void receiveDamage()
     {
         int[,] searchCoords = new int[4, 2]
@@ -51,6 +68,7 @@ public class Robot : Cell
             if(Map.Board[searchCoords[i, 0], searchCoords[i, 1]] is  IDamage cell)
                 cell.damage(this);
     }
+    // executa a movimentação solicitada.
     private void move(char mov)
     {
         switch(mov)
@@ -71,6 +89,7 @@ public class Robot : Cell
         Energy--;
     }
 
+    // procura um item nas posições adjascentes ao robô e pega ele caso encontre.
     private void getItem()
     {
         int[,] searchCoords = new int[4, 2]
@@ -94,6 +113,7 @@ public class Robot : Cell
         }
     }
 
+    // procura por joias em uma determinada posição e pega ela caso encontre.
     private void searchJewel(int posRow, int posColumn)
     {
         if(Map.Board[posRow, posColumn] is Jewel jewel)
@@ -105,6 +125,7 @@ public class Robot : Cell
         }
     }
 
+    // Procura por objetos de recarga em uma determinada posição e executa a recarga caso encontre.
     private void searchRecharge(int posRow, int posColumn)
     {
         if(Map.Board[posRow, posColumn] is IRecharge r)
@@ -114,6 +135,11 @@ public class Robot : Cell
         }
     }
 
+    /// <summary>
+    /// Método para analisar se o robô já pegou todas as jóias do Mapa.
+    /// Esse método é executado sempre após um comando de teclado
+    /// </summary>
+    /// <returns>boolean para caso tenha ou não coletado todas as jóias</returns>
     public bool getAllJewel()
     {   
         bool getAll = true;
@@ -136,12 +162,18 @@ public class Robot : Cell
         return getAll;
     }
 
+    /// <summary>
+    /// Método para verificar se o robô ainda tem energia para executar comandos no jogo.
+    /// É analisado sempre ao final de uma rodada e antes do próximo comando.
+    /// </summary>
+    /// <returns>boolean se ainda tem ou não energia para jogar</returns>
     public bool hasEnergy()
     {
         if(Energy > 0) return true;
         else return false;
     }
 
+    // método para se movimentar para cima.
     private void moveUp()
     {   
         if(Map.Board[Pos[0]-1, Pos[1]] is not (Obstacle or Jewel))
@@ -158,6 +190,7 @@ public class Robot : Cell
         }
     }
 
+    // método para se movimentar para baixo
     private void moveDown()
     {   
         if(Map.Board[Pos[0]+1, Pos[1]] is not (Obstacle or Jewel))
@@ -174,6 +207,7 @@ public class Robot : Cell
         }
     }
 
+    // método para se movimentar para a direita
     private void moveRight()
     {
         if(Map.Board[Pos[0], Pos[1]+1] is not (Obstacle or Jewel))
@@ -190,6 +224,7 @@ public class Robot : Cell
         }
     }
 
+    // método para de movimentar para a esquerda.
     private void moveLeft()
     {
         if(Map.Board[Pos[0], Pos[1]-1] is not (Obstacle or Jewel))
@@ -206,6 +241,10 @@ public class Robot : Cell
         }
     }
 
+    /// <summary>
+    /// Método para printar os status atuais do robô em uma rodada.
+    /// Mostra informações como A quantidade pontos totais, a quantidade de jóias coletadas e a energia restante.
+    /// </summary>
     public void printStatus()
     {
         int totalPoints = 0;
