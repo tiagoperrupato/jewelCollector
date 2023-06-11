@@ -1,0 +1,15 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$interface_cell.html" title="Interface utilizada para representar uma célula do Mapa." alt="" coords="23,107,69,133"/>
+<area shape="rect" id="node2" href="$class_empty.html" title="Classe que representa um espaço vazio no Mapa. Implementa a interface Cell." alt="" coords="146,107,210,133"/>
+<area shape="rect" id="node3" href="$class_jewel.html" title="Classe que representa uma jóia que pode ser coletada pelo robô. Essa classe tem capacidade de dar pon..." alt="" coords="149,208,207,235"/>
+<area shape="rect" id="node7" href="$class_obstacle.html" title="Classe que representa um objeto que funciona como obstáculo no Mapa. Essa classe implementa a interfa..." alt="" coords="139,5,217,32"/>
+<area shape="rect" id="node10" href="$class_radiation.html" title="Classe que representa um objeto que tem característica de ser radioativo. Essa classe implementa as i..." alt="" coords="136,259,220,285"/>
+<area shape="rect" id="node11" href="$class_robot.html" title="Classe que representa o robô no jogo, que é controlado pelo jogador. Essa classe implementa a interfa..." alt="" coords="148,56,208,83"/>
+<area shape="rect" id="node4" href="$class_jewel_blue.html" title="Classe que representa uma jóia do tipo azul que possui capacidade de dar pontos e energia ao jogador...." alt="" coords="274,157,361,184"/>
+<area shape="rect" id="node5" href="$class_jewel_green.html" title="Classe que representa uma jóia do tipo verde que possui capacidade de dar pontos ao jogador...." alt="" coords="269,259,365,285"/>
+<area shape="rect" id="node6" href="$class_jewel_red.html" title="Classe que representa uma jóia do tipo vermelho que possui capacidade de dar pontos ao jogador...." alt="" coords="276,208,359,235"/>
+<area shape="rect" id="node8" href="$class_tree.html" title="Classe que representa um obstáculo do tipo árvore. Ela herda a classe Obstacle e implementa a interfa..." alt="" coords="293,81,342,108"/>
+<area shape="rect" id="node9" href="$class_water.html" title="Classe que representa um obstáculo do tipo Água. Ela herda a classe Obstacle. Essa classe funciona co..." alt="" coords="287,5,347,32"/>
+<area shape="rect" id="node12" href="$interface_i_damage.html" title="Interface para representar um objeto que tem capacidade de causar dano ao robô." alt="" coords="5,259,87,285"/>
+<area shape="rect" id="node13" href="$interface_i_recharge.html" title="Interface que representa um objeto com capacidade de recarregar energia do jogador." alt="" coords="135,157,221,184"/>
+</map>

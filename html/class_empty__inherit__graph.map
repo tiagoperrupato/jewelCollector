@@ -1,0 +1,4 @@
+<map id="Empty" name="Empty">
+<area shape="rect" id="node1" title="Classe que representa um espaço vazio no Mapa. Implementa a interface Cell." alt="" coords="5,80,69,107"/>
+<area shape="rect" id="node2" href="$interface_cell.html" title="Interface utilizada para representar uma célula do Mapa." alt="" coords="14,5,61,32"/>
+</map>

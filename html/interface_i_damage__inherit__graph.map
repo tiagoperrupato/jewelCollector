@@ -1,0 +1,4 @@
+<map id="IDamage" name="IDamage">
+<area shape="rect" id="node1" title="Interface para representar um objeto que tem capacidade de causar dano ao robô." alt="" coords="7,5,88,32"/>
+<area shape="rect" id="node2" href="$class_radiation.html" title="Classe que representa um objeto que tem característica de ser radioativo. Essa classe implementa as i..." alt="" coords="5,80,89,107"/>
+</map>

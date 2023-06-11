@@ -1,0 +1,5 @@
+<map id="IRecharge" name="IRecharge">
+<area shape="rect" id="node1" title="Interface que representa um objeto com capacidade de recarregar energia do jogador." alt="" coords="51,5,137,32"/>
+<area shape="rect" id="node2" href="$class_jewel_blue.html" title="Classe que representa uma jóia do tipo azul que possui capacidade de dar pontos e energia ao jogador...." alt="" coords="5,80,92,107"/>
+<area shape="rect" id="node3" href="$class_tree.html" title="Classe que representa um obstáculo do tipo árvore. Ela herda a classe Obstacle e implementa a interfa..." alt="" coords="116,80,165,107"/>
+</map>

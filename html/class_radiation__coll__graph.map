@@ -1,0 +1,5 @@
+<map id="Radiation" name="Radiation">
+<area shape="rect" id="node1" title="Classe que representa um objeto que tem característica de ser radioativo. Essa classe implementa as i..." alt="" coords="31,80,115,107"/>
+<area shape="rect" id="node2" href="$interface_cell.html" title="Interface utilizada para representar uma célula do Mapa." alt="" coords="5,5,52,32"/>
+<area shape="rect" id="node3" href="$interface_i_damage.html" title="Interface para representar um objeto que tem capacidade de causar dano ao robô." alt="" coords="76,5,157,32"/>
+</map>
