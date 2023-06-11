@@ -1,0 +1,4 @@
+<map id="Obstacle" name="Obstacle">
+<area shape="rect" id="node1" title="Classe que representa um objeto que funciona como obstáculo no Mapa. Essa classe implementa a interfa..." alt="" coords="5,80,84,107"/>
+<area shape="rect" id="node2" href="$interface_cell.html" title="Interface utilizada para representar uma célula do Mapa." alt="" coords="21,5,68,32"/>
+</map>

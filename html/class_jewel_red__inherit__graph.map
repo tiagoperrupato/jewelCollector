@@ -1,0 +1,5 @@
+<map id="JewelRed" name="JewelRed">
+<area shape="rect" id="node1" title="Classe que representa uma jóia do tipo vermelho que possui capacidade de dar pontos ao jogador...." alt="" coords="5,155,88,181"/>
+<area shape="rect" id="node2" href="$class_jewel.html" title="Classe que representa uma jóia que pode ser coletada pelo robô. Essa classe tem capacidade de dar pon..." alt="" coords="18,80,75,107"/>
+<area shape="rect" id="node3" href="$interface_cell.html" title="Interface utilizada para representar uma célula do Mapa." alt="" coords="23,5,70,32"/>
+</map>

@@ -1,0 +1,7 @@
+<map id="Jewel" name="Jewel">
+<area shape="rect" id="node1" title="Classe que representa uma jóia que pode ser coletada pelo robô. Essa classe tem capacidade de dar pon..." alt="" coords="136,80,193,107"/>
+<area shape="rect" id="node3" href="$class_jewel_blue.html" title="Classe que representa uma jóia do tipo azul que possui capacidade de dar pontos e energia ao jogador...." alt="" coords="5,155,92,181"/>
+<area shape="rect" id="node4" href="$class_jewel_green.html" title="Classe que representa uma jóia do tipo verde que possui capacidade de dar pontos ao jogador...." alt="" coords="117,155,213,181"/>
+<area shape="rect" id="node5" href="$class_jewel_red.html" title="Classe que representa uma jóia do tipo vermelho que possui capacidade de dar pontos ao jogador...." alt="" coords="237,155,319,181"/>
+<area shape="rect" id="node2" href="$interface_cell.html" title="Interface utilizada para representar uma célula do Mapa." alt="" coords="141,5,188,32"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="Jewel" name="Jewel">
+<area shape="rect" id="node1" title="Classe que representa uma jóia que pode ser coletada pelo robô. Essa classe tem capacidade de dar pon..." alt="" coords="5,80,63,107"/>
+<area shape="rect" id="node2" href="$interface_cell.html" title="Interface utilizada para representar uma célula do Mapa." alt="" coords="11,5,57,32"/>
+</map>
